@@ -1802,7 +1802,7 @@ class Quart(Scaffold):
             asgi_handler = self.asgi_lifespan_class(self, scope)
         else:
             raise RuntimeError("ASGI Scope type is unknown")
-        await asgi_handler(receive, send)
+        asgi_handler(receive, send)
 
     async def startup(self) -> None:
         self._got_first_request = False
