@@ -1779,7 +1779,7 @@ class Quart(Scaffold):
         await self.asgi_app(scope, receive, send)
 
     async def asgi_app(
-        self, scope: Scope, receive: ASGIReceiveCallable, send: ASGISendCallable
+        self, scope: Scope, receive: ASGIReceiveCallable, send: Optional[ASGISendCallable] = None
     ) -> None:
         """This handles ASGI calls, it can be wrapped in middleware.
 
@@ -1802,7 +1802,7 @@ class Quart(Scaffold):
             asgi_handler = self.asgi_lifespan_class(self, scope)
         else:
             raise RuntimeError("ASGI Scope type is unknown")
-        await asgi_handler(receive, send)
+        await asgi_handler(receive)
 
     async def startup(self) -> None:
         self._got_first_request = False
